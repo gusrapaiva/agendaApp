@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import React, {useState} from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';  
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';  
 
 export default function Login({ navigation }) {
 
@@ -24,13 +24,11 @@ export default function Login({ navigation }) {
             });
     }
 
-    const auth = getAuth();
-        
-        
-
   return (
     <View style={styles.container}>
         <Text style={styles.titulo}>Acesso ao Diário</Text>
+
+        <Image source={require('../assets/diario.jpg')} style={styles.img}/>
 
         <TextInput style={styles.input}
             placeholderTextColor="black"
@@ -42,6 +40,7 @@ export default function Login({ navigation }) {
         <TextInput style={styles.input}
             placeholderTextColor="black"
             placeholder='Digite a Senha'
+            secureTextEntry={true}
             value={senha}
             onChangeText={(val) => {setSenha(val);}}
         />
@@ -69,6 +68,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
     },
+    img: {
+        width: '40%',
+        height: '20%'
+
+    },
     titulo: {
         fontSize: 30,
         marginTop: 40,
@@ -81,9 +85,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         width:  '80%',
         borderRadius: 10,
-        margin: 30,
+        margin: 15,
         fontSize: 20,
-        backgroundColor: '#ffff22'
+        backgroundColor: '#ffff22',
+        marginBottom: 20
     },
     btn: {
         borderWidth: 1,

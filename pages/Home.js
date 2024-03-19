@@ -1,13 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Meu Diário</Text>
-      <Text>Data: 11/03/2024</Text>
-      <Text>Palavra: Codar</Text>
-      <Text>Hoje é um novo dia, de um novo tempo que começou.</Text>
+
+      <Text style={styles.titulo}>Meu diário</Text>
+
+      <TextInput
+        style={styles.input}
+        multiline = {true}
+        numberOfLines = {6}
+        placeholder='Querido diário...'
+      />
+
       <StatusBar style="auto" />
     </View>
   );
@@ -18,6 +24,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
+  titulo: {
+    fontSize: 35
+  },
+  input: {
+    backgroundColor: "#73f587",
+    width: "80%",
+    borderRadius: 10
+  }
 });

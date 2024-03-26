@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebaseConfig';
+import { auth } from '../../firebaseConfig';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';  
 
@@ -28,7 +28,7 @@ export default function Login({ navigation }) {
     <View style={styles.container}>
         <Text style={styles.titulo}>Acesso ao Diário</Text>
 
-        <Image source={require('../assets/diario.jpg')} style={styles.img}/>
+        <Image source={require('../../assets/diario.jpg')} style={styles.img}/>
 
         <TextInput style={styles.input}
             placeholderTextColor="black"

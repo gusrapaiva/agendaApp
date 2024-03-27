@@ -1,20 +1,21 @@
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, FlatList } from 'react-native';
-import Firebase from '../../firebaseConfig';
-import { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { db } from '../../firebaseConfig';
 import { MaterialComunnityIcons } from '@expo/vector-icons';
 
 export default function Home({ navigation }) {
 
   const [diario, setDiario] = useState([]);
+
   function deleteDiario(id){
-    Firebase.collection("diario").doc(id).delete();
+    db.collection("diario").doc(id).delete();
     Alert.alert("O diário foi deletado");
   }
 
   useEffect(() => {
-    Firebase.collection("diario").onSnapshot((query) => {
+    db.collection("diario").onSnapshot((query) => {
       const lista = [];
       query.forEach((doc) => {
         lista.push({...doc.data(), id: doc.id});
@@ -41,24 +42,31 @@ export default function Home({ navigation }) {
                 data: item.data,
                 titulo: item.titulo,
                 texto: item.texto,
+                local: item.local, 
                 })}>
                 <View style={styles.itens}>
-                  <Text style={styles.titulobanda}>
-                    Artista/Banda
-                    <Text style={styles.textobanda}>
-                      {item.artistabanda}
+                  <Text style={styles.tituloDiario}>
+                    Título:
+                    <Text style={styles.registro}>
+                      {item.titulo}
                     </Text>
                   </Text>
-                  <Text style={styles.titulobanda}>
-                    Genero:
-                    <Text style={styles.textobanda}>
-                      {item.genero}
+                  <Text style={styles.tituloDiario}>
+                    Registro:
+                    <Text style={styles.registro}>
+                      {item.texto}
                     </Text>
                   </Text>
-                  <Text style={styles.titulobanda}>
-                    Musica:
-                    <Text style={styles.textobanda}>
-                      {item.musica}
+                  <Text style={styles.tituloDiario}>
+                    Local:
+                    <Text style={styles.registro}>
+                      {item.local}
+                    </Text>
+                  </Text>
+                  <Text style={styles.tituloDiario}>
+                    Data:
+                    <Text style={styles.registro}>
+                      {item.data}
                     </Text>
                   </Text>
                 </View>
@@ -74,7 +82,7 @@ export default function Home({ navigation }) {
         }}
       />
 
-      <TouchableOpacity style={styles.addbutton} onPress={() => navigation.navigate("CadDiario") }>
+      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate("CadDiario") }>
         <MaterialComunnityIcons name="plus-circle-outline" size={70} color="green" />                     
       </TouchableOpacity>
 
@@ -97,7 +105,7 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 30
   },
-  titulobanda: {
+  tituloDiario: {
     fontSize: 13,
     fontWeight: 'bold'
   },
